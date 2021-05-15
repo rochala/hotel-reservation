@@ -1,55 +1,36 @@
 package com.ztw.hotelreservation.model;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
+
+enum ClientCard {
+    @JsonProperty("Bronze Membership")
+    Bronze,
+    @JsonProperty("Silver Membership")
+    Silver,
+    @JsonProperty("Gold Membership")
+    Gold,
+    @JsonProperty("Platinum Membership")
+    Platinum
+}
+
 @Entity
-@org.hibernate.annotations.Proxy(lazy=false)
-@Table(name="`User`")
+@Table(name="users")
 @Inheritance(strategy=InheritanceType.JOINED)
-@PrimaryKeyJoinColumn(name="PersonID", referencedColumnName="ID")
-public class User extends Person implements Serializable {
-    public User() {
-    }
+@PrimaryKeyJoinColumn(name="personID", referencedColumnName="id")
+public class User extends Person {
 
-    @Column(name="CreationDate", nullable=true)
-    @Temporal(TemporalType.DATE)
-    private java.util.Date creationDate;
+    @DateTimeFormat
+    private Date creationDate;
 
-    @Column(name="ClientCard", nullable=true, length=255)
-    private String clientCard;
+    private ClientCard clientCard;
 
-    @OneToMany(mappedBy="user", targetEntity=Reservation.class)
-    @org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.LOCK})
-    @org.hibernate.annotations.LazyCollection(org.hibernate.annotations.LazyCollectionOption.TRUE)
-    private java.util.Set reservations = new java.util.HashSet();
-
-    public void setCreationDate(java.util.Date value) {
-        this.creationDate = value;
-    }
-
-    public java.util.Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setClientCard(String value) {
-        this.clientCard = value;
-    }
-
-    public String getClientCard() {
-        return clientCard;
-    }
-
-    public void setReservations(java.util.Set value) {
-        this.reservations = value;
-    }
-
-    public java.util.Set getReservations() {
-        return reservations;
-    }
-
-
-    public String toString() {
-        return super.toString();
-    }
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private List<Reservation> reservations = new ArrayList<>();
 
 }
