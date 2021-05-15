@@ -33,4 +33,16 @@ public class User extends Person {
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Reservation> reservations = new ArrayList<>();
 
+    public User(Long id, String name, String surname, Gender gender,
+                String email, String phone, String address, Date creationDate,
+                ClientCard clientCard, List<Reservation> reservations) {
+        super(id, name, surname, gender, email, phone, address);
+        this.creationDate = creationDate;
+        this.clientCard = clientCard;
+        this.reservations = reservations;
+    }
+
+    public User() {
+
+    }
 }

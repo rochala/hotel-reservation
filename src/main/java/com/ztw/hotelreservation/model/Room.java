@@ -32,6 +32,78 @@ public class Room implements Serializable {
     @OneToMany(mappedBy="room", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
+    public Room() {
+    }
 
+    public Room(Long id, Hotel hotel, int number, int floor, int bedsNumber,
+                boolean kitchen, BigInteger basePrice, List<Reservation> reservations) {
+        this.id = id;
+        this.hotel = hotel;
+        this.number = number;
+        this.floor = floor;
+        this.bedsNumber = bedsNumber;
+        this.kitchen = kitchen;
+        this.basePrice = basePrice;
+        this.reservations = reservations;
+    }
 
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public int getBedsNumber() {
+        return bedsNumber;
+    }
+
+    public void setBedsNumber(int bedsNumber) {
+        this.bedsNumber = bedsNumber;
+    }
+
+    public boolean isKitchen() {
+        return kitchen;
+    }
+
+    public void setKitchen(boolean kitchen) {
+        this.kitchen = kitchen;
+    }
+
+    public BigInteger getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(BigInteger basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
