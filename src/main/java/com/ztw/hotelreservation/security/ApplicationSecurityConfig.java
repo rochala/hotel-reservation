@@ -3,6 +3,7 @@ package com.ztw.hotelreservation.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.ztw.hotelreservation.security.ApplicationUserPermission.CLIENT_WRITE;
 import static com.ztw.hotelreservation.security.ApplicationUserRole.*;
 
 @Configuration
@@ -28,20 +30,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable()   // TODO: Work on CSRF Tokens processing
                 .authorizeRequests()
-                .antMatchers("/home", "/healthcheck")
-                .permitAll()
-                .antMatchers("/profile")
-                .hasRole(CLIENT.name())
-                .antMatchers("/receptionistPanel")
-                .hasRole(STAFF.name())
-                .antMatchers("/adminPanel")
-                .hasRole(ADMIN.name())
+                .antMatchers("/home", "/healthcheck").permitAll()
+                .antMatchers("/receptionistPanel").hasRole(STAFF.name())
+                .antMatchers("/adminPanel").hasRole(ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/profile").hasAnyRole(CLIENT.name(), STAFF.name())
+                .antMatchers(HttpMethod.POST, "/profile").hasAuthority(CLIENT_WRITE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/login").permitAll();
     }
 
     @Override
@@ -50,19 +50,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails adminUser = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("admin"))
-                .roles(ADMIN.name())
+                .authorities(ADMIN.getGrantedAuthorities())
                 .build();
 
         UserDetails receptionistUser = User.builder()
                 .username("receptionist")
                 .password(passwordEncoder.encode("receptionist"))
-                .roles(STAFF.name())
+                .authorities(STAFF.getGrantedAuthorities())
                 .build();
 
         UserDetails clientUser = User.builder()
                 .username("client")
                 .password(passwordEncoder.encode("client"))
-                .roles(CLIENT.name())
+                .authorities(CLIENT.getGrantedAuthorities())
                 .build();
 
         return new InMemoryUserDetailsManager(
