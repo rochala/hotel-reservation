@@ -40,9 +40,4 @@ public class MainController {
     String adminPanel() {
         return "Authenticated to admin panel";
     }
-
-    @RequestMapping("/login")
-    String login() {
-        return "Let's login now!";
-    }
 }
