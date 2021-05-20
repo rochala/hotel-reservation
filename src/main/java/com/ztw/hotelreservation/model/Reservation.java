@@ -41,8 +41,8 @@ public class Reservation {
     private Receptionist workerIn;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     private Date reservationTime;
 
@@ -58,13 +58,13 @@ public class Reservation {
     }
 
     public Reservation(Long id, Room room, Receptionist workerOut, Receptionist workerIn,
-                       User user, Date reservationTime, Date reservationStart,
+                       Client client, Date reservationTime, Date reservationStart,
                        BigInteger price, Status status, Date reservationEnd) {
         this.id = id;
         this.room = room;
         this.workerOut = workerOut;
         this.workerIn = workerIn;
-        this.user = user;
+        this.client = client;
         this.reservationTime = reservationTime;
         this.reservationStart = reservationStart;
         this.price = price;
@@ -100,12 +100,12 @@ public class Reservation {
         this.workerIn = workerIn;
     }
 
-    public User getUser() {
-        return user;
+    public Client getUser() {
+        return client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Client client) {
+        this.client = client;
     }
 
     public Date getReservationTime() {

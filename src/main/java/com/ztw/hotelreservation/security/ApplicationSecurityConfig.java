@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -21,10 +21,17 @@ import static com.ztw.hotelreservation.security.ApplicationUserRole.*;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
         this.passwordEncoder = passwordEncoder;
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override
@@ -40,35 +47,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login").permitAll();
+                .formLogin().permitAll();
     }
 
+    /* IN MEMORY USER DETAILS
     @Override
     @Bean
     protected UserDetailsService userDetailsService() {
-        UserDetails adminUser = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("admin"))
-                .authorities(ADMIN.getGrantedAuthorities())
-                .build();
-
-        UserDetails receptionistUser = User.builder()
-                .username("receptionist")
-                .password(passwordEncoder.encode("receptionist"))
-                .authorities(STAFF.getGrantedAuthorities())
-                .build();
-
-        UserDetails clientUser = User.builder()
-                .username("client")
-                .password(passwordEncoder.encode("client"))
-                .authorities(CLIENT.getGrantedAuthorities())
-                .build();
-
         return new InMemoryUserDetailsManager(
-                adminUser,
-                receptionistUser,
-                clientUser
+                User.withUsername("admin").password(passwordEncoder.encode("admin")).authorities(ADMIN.getGrantedAuthorities()).build(),
+                User.withUsername("receptionist").password(passwordEncoder.encode("receptionist")).authorities(STAFF.getGrantedAuthorities()).build(),
+                User.withUsername("client").password(passwordEncoder.encode("client")).authorities(CLIENT.getGrantedAuthorities()).build()
         );
     }
+    */
 }
