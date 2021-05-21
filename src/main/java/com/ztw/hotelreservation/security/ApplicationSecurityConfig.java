@@ -58,16 +58,4 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
     }
-
-    /* IN MEMORY USER DETAILS
-    @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.withUsername("admin").password(passwordEncoder.encode("admin")).authorities(ADMIN.getGrantedAuthorities()).build(),
-                User.withUsername("receptionist").password(passwordEncoder.encode("receptionist")).authorities(STAFF.getGrantedAuthorities()).build(),
-                User.withUsername("client").password(passwordEncoder.encode("client")).authorities(CLIENT.getGrantedAuthorities()).build()
-        );
-    }
-    */
 }

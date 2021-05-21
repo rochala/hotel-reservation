@@ -1,12 +1,7 @@
 package com.ztw.hotelreservation.jwt;
 
 import com.google.common.net.HttpHeaders;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import javax.crypto.SecretKey;
 
 @ConfigurationProperties(prefix = "application.jwt")
 public class JwtConfig {

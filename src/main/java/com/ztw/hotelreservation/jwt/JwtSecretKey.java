@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.crypto.SecretKey;
-import javax.persistence.Access;
 
 @Configuration
 @EnableConfigurationProperties(JwtConfig.class)
