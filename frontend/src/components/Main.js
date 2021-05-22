@@ -26,7 +26,7 @@ const Main = () => {
                 <Route path='/login'>
                     <Login />
                 </Route>
-                <Route path='/register'>
+                <Route path='/sign-up'>
                     <Register />
                 </Route>
             </Switch>

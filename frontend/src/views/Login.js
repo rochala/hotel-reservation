@@ -1,5 +1,4 @@
-// import withRoot from './modules/withRoot';
-import { withStyles } from '@material-ui/core/styles';
+import withRoot from '../withRoot';
 // --- Post bootstrap -----
 import React from 'react';
 import { Field, Form, FormSpy } from 'react-final-form';
@@ -118,4 +117,4 @@ function SignIn() {
   );
 }
 
-export default withStyles(SignIn);
+export default withRoot(SignIn);

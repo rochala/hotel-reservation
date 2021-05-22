@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import withRoot from '../withRoot';
 // --- Post bootstrap -----
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -126,4 +126,4 @@ return ( <React.Fragment>
   );
 }
 
-export default withStyles(SignUp);
+export default withRoot(SignUp);
