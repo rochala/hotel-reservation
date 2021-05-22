@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
   },
   hr: {
     width: '70%',
-    height: '5px',
-    color: theme.palette.secondary.light,
-    backgroundColor: theme.palette.secondary.main
+    height: '4px',
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main
   },
   list: {
     margin: 0,
