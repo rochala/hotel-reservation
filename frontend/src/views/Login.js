@@ -3,7 +3,8 @@ import withRoot from '../withRoot';
 import React from 'react';
 import { Field, Form, FormSpy } from 'react-final-form';
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+import Link2 from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import Typography from '../components/Typography';
 import AppForm from '../views/AppForm';
 import { email, required } from '../form/validation';
@@ -54,9 +55,9 @@ function SignIn() {
           </Typography>
           <Typography variant="body2" align="center">
             {'Not a member yet? '}
-            <Link href="/premium-themes/onepirate/sign-up/" align="center" underline="always">
+            <Link2 component={Link} to="/sign-up" align="center" underline="always">
               Sign Up here
-            </Link>
+            </Link2>
           </Typography>
         </React.Fragment>
         <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
