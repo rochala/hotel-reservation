@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import './App.css';
 import Main from "./components/Main"
 import theme from "./theme.js";
+import AppFooter from "./views/AppFooter";
 
 const navLinks = [
     {title: 'HOTEL', path: '/'},
@@ -42,6 +43,7 @@ function App() {
         <div className='App'>
             <Main/>
         </div>
+        <AppFooter />
       </ThemeProvider>
     </React.StrictMode>
 

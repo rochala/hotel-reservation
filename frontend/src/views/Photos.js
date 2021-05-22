@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import { Typography } from '@material-ui/core';
+import Typography from '../components/Typography';
 import VerticalLinearStepper from '../components/Stepper';
-import PhotoCarousel from '../components/PhotoCarousel';
 
 const styles = (theme) => ({
   root: {
@@ -37,10 +36,43 @@ const styles = (theme) => ({
     position: 'absolute',
     top: -180,
   },
+  imageSrc: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 40%',
+      borderRadius: 10,
+    },
+    imageWrapper: {
+        position: 'relative',
+        display: 'block',
+        padding: 0,
+        height: '40vh',
+        [theme.breakpoints.down('sm')]: {
+          width: '100% !important',
+          height: 100,
+        },
+        '&:hover': {
+          zIndex: 1,
+        },
+        '&:hover $imageBackdrop': {
+          opacity: 0.15,
+        },
+        '&:hover $imageMarked': {
+          opacity: 0,
+        },
+        '&:hover $imageTitle': {
+          border: '4px solid currentColor',
+        },
+  },
 });
 
 function Photos(props) {
     const { classes } = props;
+    const image = 'https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
 
     return (
 
@@ -57,8 +89,12 @@ function Photos(props) {
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <div className={classes.item}>
-                                    <PhotoCarousel />
+                                <div className={classes.item, classes.imageWrapper}>
+                                    <div className={classes.imageSrc}
+                                        style={{
+                                            backgroundImage: `url(${image})`
+                                        }}
+                                    />
                                 </div>
                             </Grid>
                         </Grid>

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Typography } from '@material-ui/core';
-// import Typography from '../components/Typography';
+import { Button } from '@material-ui/core';
+import Typography from '../components/Typography';
 import ProductHeroLayout from './ProductHeroLayout';
-import {Link} from 'react-router-dom';
+import {Link, animateScroll as scroll} from 'react-scroll';
 
 const backgroundImage =
     'https://images.pexels.com/photos/2869215/pexels-photo-2869215.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
@@ -46,14 +46,18 @@ function ProductHero(props) {
       </Typography>
       <Button
         component={ Link }
-        to="/sign-up"
+        to="values"
+        spy={true}
+        smooth={true}
+        offset={-70}
+        duraton={500}
         // to="/sign-up"
         color="secondary"
         variant="contained"
         size="large"
         className={classes.button}
       >
-        Register
+        See more
       </Button>
       <Typography variant="body2" color="inherit" className={classes.more}>
         Discover our services
