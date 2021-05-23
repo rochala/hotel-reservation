@@ -6,6 +6,8 @@ import Photos from '../views/Photos';
 import ContactHero from '../views/ContactHero';
 import Login from '../views/Login';
 import Register from '../views/Register';
+import Reservation from '../views/Reservation';
+import Contact from '../views/Contact';
 
 const Main = () => {
     return (
@@ -18,10 +20,10 @@ const Main = () => {
                     <ContactHero />
                 </Route>
                 <Route path='/reservations'>
-                    test2
+                    <Reservation />
                 </Route>
                 <Route path='/contact'>
-                    test3
+                    <Contact />
                 </Route>
                 <Route path='/login'>
                     <Login />
