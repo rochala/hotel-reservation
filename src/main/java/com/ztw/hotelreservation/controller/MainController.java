@@ -1,8 +1,6 @@
 package com.ztw.hotelreservation.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MainController {
@@ -19,10 +17,10 @@ public class MainController {
     }
 
     //To może client i receptionist
-    @GetMapping("/profile")
-    String profile() {
-        return "Authenticated to read client profile";
-    }
+    /*@GetMapping("/profile")
+    String profile(@RequestBody String username) {
+        return "Authenticated to read client profile: "+username;
+    }*/
 
     //To może tylko client
     @PostMapping("/profile")

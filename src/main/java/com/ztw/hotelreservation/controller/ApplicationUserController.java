@@ -1,6 +1,8 @@
 package com.ztw.hotelreservation.controller;
 
+import com.ztw.hotelreservation.model.Client;
 import com.ztw.hotelreservation.model.User;
+import com.ztw.hotelreservation.repository.ClientRepository;
 import com.ztw.hotelreservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,26 +18,28 @@ import java.util.Optional;
 public class ApplicationUserController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    public ApplicationUserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public ApplicationUserController(UserRepository userRepository, PasswordEncoder passwordEncoder, ClientRepository clientRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.clientRepository = clientRepository;
     }
 
     //Ciekawa sprawa, gdy ma się w bazie już usera o danym ID to i tak probuje za pierwszym razem utworzyc i wyrzuca
     //wyjatek, dopiero za drugim razem podnosi auto generowany indeks
     @PostMapping("/register")
-    ResponseEntity<Object> register(@RequestBody User newUser) {
-        Optional<User> checkUsername = userRepository.findByUsername(newUser.getUsername());
+    ResponseEntity<Object> register(@RequestBody Client newClient) {
+        Optional<User> checkUsername = userRepository.findByUsername(newClient.getUsername());
         if (checkUsername.isPresent())
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         else {
-            String unHashedPassword= newUser.getPassword();
-            newUser.setPassword(passwordEncoder.encode(unHashedPassword));
-            newUser.setActive(true);
-            newUser.setRole("CLIENT");
-            return new ResponseEntity<>(userRepository.save(newUser), HttpStatus.CREATED);
+            String unHashedPassword= newClient.getPassword();
+            newClient.setPassword(passwordEncoder.encode(unHashedPassword));
+            newClient.setActive(true);
+            newClient.setRole("CLIENT");
+            return new ResponseEntity<>(clientRepository.save(newClient), HttpStatus.CREATED);
         }
     }
 }

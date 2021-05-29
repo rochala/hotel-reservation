@@ -20,29 +20,52 @@ enum ClientCard {
 }
 
 @Entity
-@Table(name="clients")
-@Inheritance(strategy=InheritanceType.JOINED)
-@PrimaryKeyJoinColumn(name="personID", referencedColumnName="id")
-public class Client extends Person {
+@Table(name = "clients")
+@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name = "userID", referencedColumnName = "id")
+public class Client extends User {
 
     @DateTimeFormat
     private Date creationDate;
 
     private ClientCard clientCard;
 
-    @OneToMany(mappedBy="client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Reservation> reservations = new ArrayList<>();
 
-    public Client(Long id, String name, String surname, Gender gender,
-                  String email, String phone, String address, Date creationDate,
+    public Client(Long id, String username, String password, String role, boolean active, String name,
+                  String surname, String phone, String address, Date creationDate,
                   ClientCard clientCard, List<Reservation> reservations) {
-        super(id, name, surname, gender, email, phone, address);
+        super(id, username, password, role, active, name, surname, phone, address);
         this.creationDate = creationDate;
         this.clientCard = clientCard;
         this.reservations = reservations;
     }
 
     public Client() {
+    }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public ClientCard getClientCard() {
+        return clientCard;
+    }
+
+    public void setClientCard(ClientCard clientCard) {
+        this.clientCard = clientCard;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

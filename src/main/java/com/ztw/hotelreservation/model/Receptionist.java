@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="receptionists")
 @Inheritance(strategy=InheritanceType.JOINED)
-@PrimaryKeyJoinColumn(name="personID", referencedColumnName="id")
-public class Receptionist extends Person {
+@PrimaryKeyJoinColumn(name="userID", referencedColumnName="id")
+public class Receptionist extends User {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int workerID;
@@ -20,10 +20,10 @@ public class Receptionist extends Person {
     @OneToMany(mappedBy="workerOut", cascade = CascadeType.ALL)
     private List<Reservation> reservationOut = new ArrayList<>();
 
-    public Receptionist(Long id, String name, String surname, Gender gender,
-                        String email, String phone, String address, int workerID,
+    public Receptionist(Long id, String email, String password, String role, boolean active, String name,
+                        String surname, String phone, String address, int workerID,
                         boolean workerStatus, List<Reservation> reservationIn, List<Reservation> reservationOut) {
-        super(id, name, surname, gender, email, phone, address);
+        super(id, email, password, role, active, name, surname, phone, address);
         this.workerID = workerID;
         this.workerStatus = workerStatus;
         this.reservationIn = reservationIn;
