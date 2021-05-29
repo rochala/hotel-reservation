@@ -1,3 +1,17 @@
-.rooms:hover {
-    fill: rgb(89, 52, 148);
+.rooms_active {
+    opacity: 0.25;
+    fill: gray;
+}
+.rooms_active:hover {
+    fill: rgb(16, 207, 73) !important;
+    transition: 0.3s ease-in !important;
+}
+
+.rooms_disabled {
+    opacity: 1.0 !important;
+    fill: #f44336 !important;
+}
+.rooms_disabled:hover {
+    fill: rgb(209, 18, 18) !important;
+    transition: 0.3s ease-in !important;
 }

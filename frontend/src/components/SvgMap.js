@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../SvgMap.css';
+const rooms = 10;
 
-function SvgMap() {
+function setUpSvgMap(data){
+  for (var i = 1; i <= rooms; i++){
+      let room_id = "room"+i;
+      let room = document.getElementById(room_id+"_hover");
+
+      if(data.includes(room_id)) {
+        room.removeEventListener('click', makeState);
+        room.classList.add("rooms_disabled");
+        room.classList.remove("rooms_active");
+      }
+
+      else {
+        room.addEventListener('click', makeState);
+        room.classList.add("rooms_active");
+        room.classList.remove("rooms_disabled");
+      }
+  }
+}
+function makeState(event){
+    console.log(event.path[1].id);
+}
+
+function SvgMap(props) {
+  useEffect(() => { 
+    setUpSvgMap(props.rooms); 
+  });
+  
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +128,6 @@ function SvgMap() {
         <g
           id="room1"
           display="inline"
-          onclick="showInfo()"
           transform="matrix(.88045 0 0 .8933 -7.59 139.86)"
         >
           <rect
@@ -272,7 +299,7 @@ function SvgMap() {
             </g>
           </g>
           <rect
-            id="rect1158"
+            id="room1_hover"
             width="84"
             height="69"
             x="-67.395"
@@ -477,7 +504,7 @@ function SvgMap() {
             </g>
           </g>
           <rect
-            id="rect1156"
+            id="room2_hover"
             width="84"
             height="69"
             x="-67.395"
@@ -682,7 +709,7 @@ function SvgMap() {
             </g>
           </g>
           <rect
-            id="rect1154"
+            id="room3_hover"
             width="84"
             height="69"
             x="-67.395"
@@ -904,7 +931,7 @@ function SvgMap() {
             </g>
           </g>
           <rect
-            id="rect1152"
+            id="room4_hover"
             width="84"
             height="69"
             x="-67.395"
@@ -1060,7 +1087,7 @@ function SvgMap() {
             paintOrder="normal"
           ></path>
           <rect
-            id="rect1150"
+            id="room5_hover"
             width="84"
             height="69"
             x="-67.395"
@@ -1232,7 +1259,7 @@ function SvgMap() {
             paintOrder="normal"
           ></path>
           <rect
-            id="rect1148"
+            id="room6_hover"
             width="84"
             height="69"
             x="-67.395"
@@ -1431,7 +1458,7 @@ function SvgMap() {
             </g>
           </g>
           <rect
-            id="rect1146"
+            id="room7_hover"
             width="84"
             height="76.362"
             x="-89.252"
@@ -1630,7 +1657,7 @@ function SvgMap() {
             </g>
           </g>
           <rect
-            id="rect1144"
+            id="room8_hover"
             width="84"
             height="76.362"
             x="-89.252"
@@ -1802,7 +1829,7 @@ function SvgMap() {
             paintOrder="normal"
           ></path>
           <rect
-            id="rect1142"
+            id="room9_hover"
             width="84"
             height="69"
             x="-67.395"
@@ -1961,7 +1988,7 @@ function SvgMap() {
             paintOrder="normal"
           ></path>
           <rect
-            id="rect317"
+            id="room10_hover"
             width="84"
             height="69"
             x="-67.395"
