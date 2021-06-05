@@ -2,33 +2,28 @@ import React, { useEffect, useState } from "react";
 import '../SvgMap.css';
 const rooms = 10;
 
-function setUpSvgMap(data){
+function setUpSvgMap(data, makeState){
   for (var i = 1; i <= rooms; i++){
       let room_id = "room"+i;
       let room = document.getElementById(room_id+"_hover");
 
-      if(data.includes(room_id)) {
-        room.removeEventListener('click', makeState);
+      if(data.includes(i)) {
+        room.onclick = null
         room.classList.add("rooms_disabled");
         room.classList.remove("rooms_active");
       }
-
       else {
-        room.addEventListener('click', makeState);
+        room.onclick = () => makeState(room_id);
         room.classList.add("rooms_active");
         room.classList.remove("rooms_disabled");
       }
   }
 }
-function makeState(event){
-    console.log(event.path[1].id);
-}
 
 function SvgMap(props) {
-  useEffect(() => { 
-    setUpSvgMap(props.rooms); 
+  useEffect(() => {
+    setUpSvgMap(props.rooms, props.makeState);
   });
-  
 
   return (
     <svg
@@ -58,9 +53,7 @@ function SvgMap(props) {
           ry="0"
         ></rect>
         <path
-          id="rect945-7"
-          fill="#ff2ad4"
-          fillOpacity="1"
+          id="rect945-7" fill="#ff2ad4" fillOpacity="1"
           stroke="#f36"
           strokeOpacity="0"
           strokeWidth="0.561"

@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Container, List, ListItem, ListItemText, Toolbar } from "@material-ui/core";
+import { AppBar, Container, List, ListItem, ListItemText, Toolbar, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
@@ -31,10 +31,18 @@ const useStyles = makeStyles({
         color: 'white',
         flexGrow: 1,
     },
+    boxFlex: {
+        display: 'flex'
+    }
 })
 
 const Header = (props) => {
     const classes = useStyles();
+
+    const logout = () => {
+        sessionStorage.removeItem('session')
+        window.location.href = '/';
+    }
 
     return (
         <AppBar position="static" className={classes.navColor}>
@@ -45,8 +53,13 @@ const Header = (props) => {
                 </IconButton>
                 <Typography variant="h4" className={classes.title}>HOTEL</Typography>
                 <Button component={ Link } to="/reservations" color="inherit">RESERVATIONS</Button>
-                <Button component={ Link } to="/login" color="inherit">LOGIN</Button>
-                <Button component={ Link } to="/sign-up" color="inherit">SIGN UP</Button>
+                { sessionStorage.getItem('session') ?
+                     <Button onClick = { logout } color="inherit">LOGOUT</Button> :
+                    <Box className={classes.boxFlex}>
+                       <Button component={ Link } to="/login" color="inherit">LOGIN</Button>
+                       <Button component={ Link } to="/sign-up" color="inherit">SIGN UP</Button>
+                    </Box>
+                }
                 </Container>
             </Toolbar>
         </AppBar>

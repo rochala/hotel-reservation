@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
+import Modal from '@material-ui/core/Modal';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Checkout from './Checkout';
 import { findByLabelText } from '@testing-library/dom';
 
 const useStyles = makeStyles({
@@ -19,8 +21,17 @@ const useStyles = makeStyles({
   }
 });
 
-export default function ImgMediaCard() {
+export default function ImgMediaCard(props) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card className={classes.root}>
@@ -34,21 +45,33 @@ export default function ImgMediaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Room
+            Number:
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Floor:
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Beds:
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            BasePrice:
+            Kitchen:
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Price:
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.rightAlign}>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleOpen}>
           Reserve
         </Button>
       </CardActions>
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        <Checkout />
+      </Modal>
     </Card>
   );
 }

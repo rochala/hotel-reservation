@@ -40,9 +40,34 @@ function SignUp() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (values) => {
     setSent(true);
+    await fetch("http://localhost:8080/register", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+            username: values.email,
+            password: values.password,
+            name: values.firstName,
+            surname: values.lastName
+        })
+    }).then( response => {
+        if (response.status === 201) {
+            window.location.href = '/login';
+        } else {
+            setSent(false);
+        }
+    })
+    .catch( error => {
+        console.error('Error:', error);
+        setSent(false);
+    });
   };
+
+
 return ( <React.Fragment>
       <AppForm>
         <React.Fragment>
@@ -56,8 +81,8 @@ return ( <React.Fragment>
           </Typography>
         </React.Fragment>
         <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
-          {({ handleSubmit2, submitting }) => (
-            <form onSubmit={handleSubmit2} className={classes.form} noValidate>
+          {({ handleSubmit, submitting }) => (
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <Field

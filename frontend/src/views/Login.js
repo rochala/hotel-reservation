@@ -4,7 +4,7 @@ import React from 'react';
 import { Field, Form, FormSpy } from 'react-final-form';
 import { makeStyles } from '@material-ui/core/styles';
 import Link2 from '@material-ui/core/Link';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Typography from '../components/Typography';
 import AppForm from '../views/AppForm';
 import { email, required } from '../form/validation';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignIn() {
+function SignIn(props) {
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
 
@@ -42,8 +42,32 @@ function SignIn() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (values) => {
     setSent(true);
+    await fetch("http://localhost:8080/login", {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: JSON.stringify({
+            username: values.email,
+            password: values.password
+        })
+    }).then( response => {
+        if (response.status === 200) {
+            return response.json()
+        } else {
+            setSent(false);
+        }
+    }).then( json => {
+        if (json != null) {
+            sessionStorage.setItem('session', json.token);
+            window.location.href = '/';
+        }
+    }
+    )
+    .catch( error => {
+        console.error('Error:', error);
+        setSent(false);
+    });
   };
 
   return (
@@ -61,8 +85,8 @@ function SignIn() {
           </Typography>
         </React.Fragment>
         <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
-          {({ handleSubmit2, submitting }) => (
-            <form onSubmit={handleSubmit2} className={classes.form} noValidate>
+          {({ handleSubmit, submitting }) => (
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Field
                 autoComplete="email"
                 autoFocus
@@ -108,11 +132,6 @@ function SignIn() {
             </form>
           )}
         </Form>
-        <Typography align="center">
-          <Link underline="always" href="/premium-themes/onepirate/forgot-password/">
-            Forgot password?
-          </Link>
-        </Typography>
       </AppForm>
     </React.Fragment>
   );

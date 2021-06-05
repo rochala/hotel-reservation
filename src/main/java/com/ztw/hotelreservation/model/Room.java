@@ -47,14 +47,6 @@ public class Room implements Serializable {
         this.reservations = reservations;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
     public int getNumber() {
         return number;
     }
@@ -93,14 +85,6 @@ public class Room implements Serializable {
 
     public void setBasePrice(BigInteger basePrice) {
         this.basePrice = basePrice;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
     }
 
     public Long getId() {
