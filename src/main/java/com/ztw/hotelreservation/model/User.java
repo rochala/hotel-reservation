@@ -1,10 +1,13 @@
 package com.ztw.hotelreservation.model;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
