@@ -84,7 +84,13 @@ function Profile(props) {
 
     console.log(profileDetails);
 
+    const isLoggedIn = () => {
+        return sessionStorage.getItem('session') ? true : false 
+    }
+
+
     return (
+         isLoggedIn() ?
         <React.Fragment>
             <AppForm>
                 <React.Fragment>
@@ -127,6 +133,8 @@ function Profile(props) {
                 </React.Fragment>
             </AppForm>
         </React.Fragment>
+        :
+        <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
     );
 }
 

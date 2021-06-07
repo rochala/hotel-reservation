@@ -44,6 +44,10 @@ const Header = (props) => {
         window.location.href = '/';
     }
 
+    const isLoggedIn = () => {
+        return sessionStorage.getItem('session') ? true : false;
+    }
+
     return (
         <AppBar position="static" className={classes.navColor}>
             <Toolbar>
@@ -53,7 +57,7 @@ const Header = (props) => {
                 </IconButton>
                 <Typography variant="h4" className={classes.title}>HOTEL</Typography>
                 <Button component={ Link } to="/reservations" color="inherit">RESERVATIONS</Button>
-                { sessionStorage.getItem('session') ?
+                { isLoggedIn() ?
                     <Box className={classes.boxFlex}>
                         <Button component={ Link } to="/profile" color="inherit">YOUR ACCOUNT</Button>
                         <Button onClick = { logout } color="inherit">LOGOUT</Button>
