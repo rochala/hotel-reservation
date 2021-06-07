@@ -1,5 +1,8 @@
 package com.ztw.hotelreservation.controller;
 
+import com.ztw.hotelreservation.authentication.facebook.FacebookLoginRequest;
+import com.ztw.hotelreservation.authentication.facebook.FacebookService;
+import com.ztw.hotelreservation.jwt.JwtAuthenticationResponse;
 import com.ztw.hotelreservation.model.Client;
 import com.ztw.hotelreservation.model.User;
 import com.ztw.hotelreservation.repository.ClientRepository;
@@ -19,12 +22,14 @@ public class ApplicationUserController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ClientRepository clientRepository;
+    private final FacebookService facebookService;
 
     @Autowired
-    public ApplicationUserController(UserRepository userRepository, PasswordEncoder passwordEncoder, ClientRepository clientRepository) {
+    public ApplicationUserController(UserRepository userRepository, PasswordEncoder passwordEncoder, ClientRepository clientRepository, FacebookService facebookService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.clientRepository = clientRepository;
+        this.facebookService = facebookService;
     }
 
     //Ciekawa sprawa, gdy ma się w bazie już usera o danym ID to i tak probuje za pierwszym razem utworzyc i wyrzuca
@@ -41,5 +46,11 @@ public class ApplicationUserController {
             newClient.setRole("CLIENT");
             return new ResponseEntity<>(clientRepository.save(newClient), HttpStatus.CREATED);
         }
+    }
+
+    @PostMapping("/facebook/login")
+    public  ResponseEntity<?> facebookAuth(@RequestBody FacebookLoginRequest facebookLoginRequest) {
+        String token = facebookService.loginUser(facebookLoginRequest.getAccessToken());
+        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 }

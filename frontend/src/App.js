@@ -12,7 +12,8 @@ const navLinks = [
     {title: 'HOTEL', path: '/'},
     {title: 'Reservations', path: '/reservations'},
     {title: 'Contact', path: '/contact'},
-    {title: 'Sign up', path: '/login'}
+    {title: 'Sign up', path: '/login'},
+    {title: 'Your Account', path: '/profile'}
 ]
 
 function App() {

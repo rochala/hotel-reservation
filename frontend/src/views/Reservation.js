@@ -14,9 +14,6 @@ const styles = (theme) => ({
 
 });
 
-
-
-
 function Reservation(props) {
     const [selectedRoom, setSelectedRoom] = useState(2);
     const [rooms, setRooms] = useState([]);

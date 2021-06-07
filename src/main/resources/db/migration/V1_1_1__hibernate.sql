@@ -1,0 +1,1 @@
+INSERT INTO db.hibernate_sequence (next_val) VALUES (0);
