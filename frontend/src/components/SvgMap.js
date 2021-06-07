@@ -7,15 +7,16 @@ function setUpSvgMap(data, makeState){
       let room_id = "room"+i;
       let room = document.getElementById(room_id+"_hover");
 
-      if(data.includes(i)) {
-        room.onclick = null
-        room.classList.add("rooms_disabled");
-        room.classList.remove("rooms_active");
-      }
-      else {
+      console.log(data.filter(r => r.number === i));
+      if(data.filter(r => r.number === i).length !== 0) {
         room.onclick = () => makeState(room_id);
         room.classList.add("rooms_active");
         room.classList.remove("rooms_disabled");
+      }
+      else {
+        room.onclick = null
+        room.classList.add("rooms_disabled");
+        room.classList.remove("rooms_active");
       }
   }
 }

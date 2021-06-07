@@ -45,24 +45,24 @@ export default function ImgMediaCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Number:
+            Number: { props.room.number }
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Floor:
+            Floor: { props.room.floor }
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Beds:
+            Beds: { props.room.bedsNumber }
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Kitchen:
+            Kitchen: { props.room.kitchen ? "yes" : "no" }
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Price:
+            Price: { props.room.basePrice }
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.rightAlign}>
-        <Button size="small" color="primary" onClick={handleOpen}>
+        <Button disabled={ sessionStorage.getItem('session') == null }size="small" color="primary" onClick={handleOpen}>
           Reserve
         </Button>
       </CardActions>
