@@ -12,11 +12,7 @@ const styles = (theme) => ({
         margin: 25
     },
 });
-
-
-
-const rooms = [1, 2, 3, 4];
-
+const rooms = ["room1","room2","room3","room4"];
 function Reservation(props) {
     const [selectedRoom, setSelectedRoom] = useState(0);
 
