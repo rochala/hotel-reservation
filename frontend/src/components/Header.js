@@ -54,7 +54,11 @@ const Header = (props) => {
                 <Typography variant="h4" className={classes.title}>HOTEL</Typography>
                 <Button component={ Link } to="/reservations" color="inherit">RESERVATIONS</Button>
                 { sessionStorage.getItem('session') ?
-                     <Button onClick = { logout } color="inherit">LOGOUT</Button> :
+                    <Box className={classes.boxFlex}>
+                        <Button component={ Link } to="/profile" color="inherit">YOUR ACCOUNT</Button>
+                        <Button onClick = { logout } color="inherit">LOGOUT</Button>
+                    </Box>
+                      :
                     <Box className={classes.boxFlex}>
                        <Button component={ Link } to="/login" color="inherit">LOGIN</Button>
                        <Button component={ Link } to="/sign-up" color="inherit">SIGN UP</Button>

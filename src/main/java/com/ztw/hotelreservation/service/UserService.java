@@ -1,7 +1,9 @@
 package com.ztw.hotelreservation.service;
 
 import com.ztw.hotelreservation.jwt.JwtTokenProvider;
+import com.ztw.hotelreservation.model.Client;
 import com.ztw.hotelreservation.model.User;
+import com.ztw.hotelreservation.repository.ClientRepository;
 import com.ztw.hotelreservation.repository.UserRepository;
 import com.ztw.hotelreservation.security.ApplicationUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,15 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
 
     @Autowired
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, ClientRepository clientRepository, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.clientRepository = clientRepository;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
     }
@@ -39,6 +43,7 @@ public class UserService {
 
     public User registerUser(User user, ApplicationUserRole role) {
         System.out.println("registering user");
+        Client newClient=new Client();
 
         if(userRepository.existsByUsername(user.getUsername())) {
             System.out.println("username already exists.");
@@ -47,11 +52,14 @@ public class UserService {
                     String.format("username %s already exists", user.getUsername()));
         }
 
-        user.setActive(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(role.name());
+        newClient.setUsername(user.getUsername());
+        newClient.setName(user.getName());
+        newClient.setSurname(user.getSurname());
+        newClient.setActive(true);
+        newClient.setPassword(passwordEncoder.encode(user.getPassword()));
+        newClient.setRole(role.name());
 
-        return userRepository.save(user);
+        return clientRepository.save(newClient);
     }
 
     public List<User> findAll() {

@@ -8,6 +8,7 @@ import Login from '../views/Login';
 import Register from '../views/Register';
 import Reservation from '../views/Reservation';
 import Contact from '../views/Contact';
+import Profile from '../views/Profile';
 
 const Main = () => {
     return (
@@ -30,6 +31,9 @@ const Main = () => {
                 </Route>
                 <Route path='/sign-up'>
                     <Register />
+                </Route>
+                <Route path='/profile'>
+                    <Profile />
                 </Route>
             </Switch>
         </main>
