@@ -96,7 +96,11 @@ function SignIn(props) {
         if (json != null) {
             sessionStorage.setItem('session', "Bearer "+json.accessToken);
             console.log(json.accessToken);
-            window.location.href = '/';
+            if (json.registration == true) {
+              window.location.href = '/registrationdetails';
+            } else {
+              window.location.href = '/';
+            }
         }
     }
     )

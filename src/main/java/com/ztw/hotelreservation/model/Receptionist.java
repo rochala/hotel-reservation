@@ -21,9 +21,9 @@ public class Receptionist extends User {
     private List<Reservation> reservationOut = new ArrayList<>();
 
     public Receptionist(Long id, String email, String password, String role, boolean active, String name,
-                        String surname, String phone, String address, int workerID,
+                        String surname, String phone, int workerID,
                         boolean workerStatus, List<Reservation> reservationIn, List<Reservation> reservationOut) {
-        super(id, email, password, role, active, name, surname, phone, address);
+        super(id, email, password, role, active, name, surname, phone);
         this.workerID = workerID;
         this.workerStatus = workerStatus;
         this.reservationIn = reservationIn;

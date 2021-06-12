@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class JwtAuthenticationResponse {
+public class JwtTokenResponse {
 
     @NonNull
     private String accessToken;

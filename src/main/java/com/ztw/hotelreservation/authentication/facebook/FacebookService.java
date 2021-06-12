@@ -36,6 +36,29 @@ public class FacebookService {
                         new RuntimeException("unable to login facebook user id " + facebookUser.getId()));
     }
 
+    public boolean userNeedsDetails(String fbAccessToken){
+        var facebookUser = facebookClient.getUser(fbAccessToken);
+        Optional<User> userOptional = userService.findByUsername(facebookUser.getEmail());
+        if (userOptional.isPresent()) {
+            if (userOptional.get().getRole().equals("FACEBOOK_CLIENT"))
+                return true;
+            else
+                return false;
+        } else {
+            return true;
+        }
+    }
+
+    public String getName(String fbAccessToken){
+        var facebookUser = facebookClient.getUser(fbAccessToken);
+        return userService.findByUsername(facebookUser.getEmail()).get().getName();
+    }
+
+    public String getSurname(String fbAccessToken){
+        var facebookUser = facebookClient.getUser(fbAccessToken);
+        return userService.findByUsername(facebookUser.getEmail()).get().getSurname();
+    }
+
     private User convertTo(FacebookUser facebookUser) {
         return User.builder()
                 .id((long) facebookUser.getId().hashCode())

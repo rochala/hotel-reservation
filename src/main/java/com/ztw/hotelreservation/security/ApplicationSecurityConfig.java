@@ -61,6 +61,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey, userRepository), JwtUsernamePasswordAuthFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/healthcheck", "/register", "/swagger-ui.html", "/login", "/facebook/login").permitAll()
+                .antMatchers("/facebook/registrationdetails").hasRole(FACEBOOK_CLIENT.name())
                 .antMatchers("/receptionistPanel").hasRole(STAFF.name())
                 .antMatchers("/adminPanel").hasRole(ADMIN.name())
                 .antMatchers(HttpMethod.GET, "/rooms/{floor}/{start}/{end}").permitAll()

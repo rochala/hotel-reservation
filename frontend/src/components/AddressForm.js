@@ -8,9 +8,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 export default function AddressForm() {
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Reservation data
-      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -62,9 +59,6 @@ export default function AddressForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="zip"
@@ -82,6 +76,16 @@ export default function AddressForm() {
             label="Country"
             fullWidth
             autoComplete="shipping country"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="phone"
+            name="phone"
+            label="Phone number"
+            fullWidth 
+            autoComplete="phone"
           />
         </Grid>
       </Grid>

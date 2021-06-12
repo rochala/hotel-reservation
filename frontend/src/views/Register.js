@@ -90,8 +90,12 @@ function SignUp() {
         }
     }).then( json => {
         if (json != null) {
-            sessionStorage.setItem('session', json.token);
-            window.location.href = '/';
+          sessionStorage.setItem('session', "Bearer "+json.accessToken);
+            if (json.registration == true) {
+              window.location.href = '/registrationdetails';
+            } else {
+              window.location.href = '/';
+            }
         }
     }
     )

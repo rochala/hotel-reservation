@@ -9,6 +9,7 @@ import Register from '../views/Register';
 import Reservation from '../views/Reservation';
 import Contact from '../views/Contact';
 import Profile from '../views/Profile';
+import RegistrationDetails from '../views/RegistrationDetails';
 
 const Main = () => {
     return (
@@ -31,6 +32,9 @@ const Main = () => {
                 </Route>
                 <Route path='/sign-up'>
                     <Register />
+                </Route>
+                <Route path='/registrationdetails'>
+                    <RegistrationDetails />
                 </Route>
                 <Route path='/profile'>
                     <Profile />

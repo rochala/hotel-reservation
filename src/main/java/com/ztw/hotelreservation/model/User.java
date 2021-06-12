@@ -22,10 +22,9 @@ public class User {
     private String name;
     private String surname;
     private String phone;
-    private String address;
 
     public User(Long id, String username, String password, String role, boolean active, String name,
-                String surname, String phone, String address) {
+                String surname, String phone) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -34,7 +33,6 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
-        this.address = address;
     }
 
     public User() {
@@ -102,13 +100,5 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }
