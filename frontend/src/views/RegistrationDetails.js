@@ -62,12 +62,10 @@ function FinishSignUp(props) {
             }
         })
             .then(json => {
-                if (json.role === "FACEBOOK_CLIENT") {
+                if (json.role === "PREREGISTERED_CLIENT") {
                     setLoggedIn(true);
-                    
                 } else {
                     setLoggedIn(false);
-
                 }
             });
     }
@@ -135,6 +133,7 @@ function FinishSignUp(props) {
 
     useEffect(() => {
         isLoggedIn();
+        console.log(loggedIn);
         fetchData();
     }, []);
 

@@ -61,12 +61,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey, userRepository), JwtUsernamePasswordAuthFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/healthcheck", "/register", "/swagger-ui.html", "/login", "/facebook/login").permitAll()
-                .antMatchers("/facebook/registrationdetails").hasRole(FACEBOOK_CLIENT.name())
+                .antMatchers("/facebook/registrationdetails").hasRole(PREREGISTERED_CLIENT.name())
                 .antMatchers("/receptionistPanel").hasRole(STAFF.name())
                 .antMatchers("/adminPanel").hasRole(ADMIN.name())
                 .antMatchers(HttpMethod.GET, "/rooms/{floor}/{start}/{end}").permitAll()
-                .antMatchers(HttpMethod.GET, "/profile").hasAnyRole(CLIENT.name(), STAFF.name(), FACEBOOK_CLIENT.name())
-                .antMatchers(HttpMethod.POST, "/profile").hasAuthority(CLIENT_WRITE.getPermission())
+                .antMatchers(HttpMethod.GET, "/profile").hasAnyRole(CLIENT.name(), STAFF.name(), FACEBOOK_CLIENT.name(), PREREGISTERED_CLIENT.name())
+                .antMatchers(HttpMethod.POST, "/profile", "/updateProfile").hasAuthority(CLIENT_WRITE.getPermission())
                 .anyRequest()
                 .authenticated();
     }
