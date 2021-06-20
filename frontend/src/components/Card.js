@@ -70,7 +70,13 @@ export default function ImgMediaCard(props) {
         open={open}
         onClose={handleClose}
       >
-        <Checkout />
+        <Checkout
+              price={props.room.basePrice}
+              number={props.room.number}
+              start={props.start}
+              end={props.end}
+              id={props.id}
+      />
       </Modal>
     </Card>
   );

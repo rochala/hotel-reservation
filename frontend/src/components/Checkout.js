@@ -55,24 +55,103 @@ const useStyles = makeStyles((theme) => ({
 const steps = ['Personal data', 'Payment details', 'Confirm reservation'];
 
 
-export default function Checkout() {
+export default function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [sent, setSent] = React.useState(false);
 
+  const [userData, setUser] = React.useState({name: "", surname: "", address1: "", address2: "", city: "", zipCode: "", country: "", phone: ""});
+
+
+  const handleSubmit = async () => {
+    setSent(true);
+    await fetch("http://localhost:8080/reservation", {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': sessionStorage.getItem('session')
+      },
+      body: JSON.stringify({
+        price: props.price,
+        reservationStart: props.start,
+        reservationEnd: props.end,
+        room: {
+            id: props.id
+        }
+      })
+    }).then(response => {
+      if (response.status === 201) {
+        window.location.href = '/reservations';
+      } else {
+        setSent(false);
+      }
+    })
+      .catch(error => {
+        console.error('Error:', error);
+        setSent(false);
+      });
+  };
+
+
+    const handleSetUserData = (key) =>
+            (event) =>
+            setUser(oldState => ({
+                ...oldState,
+                [key]: event.target.value
+            })
+        )
+
+
+    const fetchData = () => {
+        fetch("http://localhost:8080/profile", {
+            method: 'GET',
+            headers: { 'Authorization': sessionStorage.getItem('session') },
+            credentials: 'same-origin',
+        }).then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+
+            }
+        }).then(json => {
+            if (json != null) {
+                setUser(json)
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+
+    useEffect(() => {
+        if (sessionStorage.getItem('session')) {
+            fetchData();
+        }
+    }, []);
     function getStepContent(step) {
       switch (step) {
         case 0:
-          return <AddressForm />;
+          return <AddressForm handler={handleSetUserData} user={userData} />;
         case 1:
           return <PaymentForm />;
         case 2:
-          return <Review />;
+          return <Review
+              fullName={userData.name + " " + userData.surname}
+              address1={userData.address1}
+              address2={userData.address2}
+              price={props.price}
+                number={props.number}
+                  start={props.start}
+                  end={props.end}
+                  />;
         default:
           throw new Error('Unknown step');
       }
     }
 
   const handleNext = () => {
+      if (activeStep == 2) handleSubmit();
     setActiveStep(activeStep + 1);
   };
 
@@ -117,6 +196,7 @@ export default function Checkout() {
                   <Button
                     variant="contained"
                     color="primary"
+                    disabled={sent}
                     onClick={handleNext}
                     className={classes.button}
                   >
