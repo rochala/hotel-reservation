@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -54,22 +54,23 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Personal data', 'Payment details', 'Confirm reservation'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+
+    function getStepContent(step) {
+      switch (step) {
+        case 0:
+          return <AddressForm />;
+        case 1:
+          return <PaymentForm />;
+        case 2:
+          return <Review />;
+        default:
+          throw new Error('Unknown step');
+      }
+    }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);

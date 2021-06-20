@@ -12,10 +12,10 @@ const products = [
 ];
 const addresses = ['Adress 1', 'Adress 2', 'Adress 3', 'ZIP-CODE', 'COUNTRY'];
 const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Bartlomiej Duda' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
+  { name: 'Card type', detail: '---' },
+  { name: 'Card holder', detail: '---' },
+  { name: 'Card number', detail: '---' },
+  { name: 'Expiry date', detail: '---' },
 ];
 
 const useStyles = makeStyles((theme) => ({
