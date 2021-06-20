@@ -144,7 +144,7 @@ function Profile(props) {
                                     </Typography>
                                 </React.Fragment>
                                 {reservationsDetails.length!=0 ? ( 
-                                        <Carousel arrows infinite>
+                                        <Carousel  plugins={['arrows']}>
                                             {reservationsDetails.map((reservation) => <div><ReservationCard reservation={reservation}/></div>)}
                                         </Carousel>
                                     ) : (<React.Fragment>

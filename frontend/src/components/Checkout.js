@@ -59,6 +59,7 @@ export default function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [sent, setSent] = React.useState(false);
+  const [priceComp, setPrice] = React.useState(0.0);
 
   const [userData, setUser] = React.useState({name: "", surname: "", address1: "", address2: "", city: "", zipCode: "", country: "", phone: ""});
 
@@ -73,7 +74,7 @@ export default function Checkout(props) {
         'Authorization': sessionStorage.getItem('session')
       },
       body: JSON.stringify({
-        price: props.price,
+        price: priceComp,
         reservationStart: props.start,
         reservationEnd: props.end,
         room: {
@@ -116,7 +117,8 @@ export default function Checkout(props) {
             }
         }).then(json => {
             if (json != null) {
-                setUser(json)
+                setUser(json);
+                setPrice(props.price*Math.floor((new Date(props.end) - new Date(props.start)) / (1000*60*60*24)));
             }
         }).catch(error => {
             console.error('Error:', error);
@@ -140,7 +142,7 @@ export default function Checkout(props) {
               fullName={userData.name + " " + userData.surname}
               address1={userData.address1}
               address2={userData.address2}
-              price={props.price}
+              price={priceComp}
                 number={props.number}
                   start={props.start}
                   end={props.end}

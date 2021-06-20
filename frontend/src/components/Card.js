@@ -75,7 +75,7 @@ export default function ImgMediaCard(props) {
             Kitchen: {props.room.kitchen ? "yes" : "no"}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Price: {props.room.basePrice}
+            Price: {props.room.basePrice}.00 $
           </Typography>
         </CardContent>
       </CardActionArea>

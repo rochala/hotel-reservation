@@ -71,7 +71,7 @@ export default function ImgMediaCard(props) {
                         End date: {new Date(props.reservation.reservationEnd).getDate()+"-0"+new Date(props.reservation.reservationEnd).getMonth()+"-"+new Date(props.reservation.reservationEnd).getFullYear()}
                     </Typography>
                     <Typography gutterBottom variant="h5" component="h2">
-                        Price: {props.reservation.price}
+                        Price: {props.reservation.price}.00 $
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         Room number: {props.reservation.room.number}
