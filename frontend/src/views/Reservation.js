@@ -1,4 +1,4 @@
-import { withStyles, Container, Grid, Box, TextField } from "@material-ui/core";
+import { withStyles, Container, Grid, Box, TextField, Paper} from "@material-ui/core";
 import SvgMap from '../components/SvgMap';
 import Card from '../components/Card';
 import React, { useEffect, useState, } from "react";
@@ -6,9 +6,9 @@ import React, { useEffect, useState, } from "react";
 
 const styles = (theme) => ({
     padding: {
-      padding: theme.spacing(2),
+        padding: theme.spacing(2),
     },
-    cardView : {
+    cardView: {
         margin: 25
     },
 
@@ -32,13 +32,13 @@ function Reservation(props) {
     }, []);
 
     const loadRooms = async (startDate, endDate) => {
-      const response = await fetch(`http://localhost:8080/rooms/1/${startDate}/${endDate}`, {
-          method: 'GET',
-          credentials: 'same-origin'
-      })
-      console.log(startDate)
-      const data = await response.json()
-      setRooms(data);
+        const response = await fetch(`http://localhost:8080/rooms/1/${startDate}/${endDate}`, {
+            method: 'GET',
+            credentials: 'same-origin'
+        })
+        console.log(startDate)
+        const data = await response.json()
+        setRooms(data);
     };
 
 
@@ -55,43 +55,50 @@ function Reservation(props) {
 
     const { classes } = props;
     return (
-        <Box>
-            <Box display="flex" spacing={5} alignItems="center" justifyContent="center">
-                <TextField
-                    color='secondary'
-                    id="startDate"
-                    label="Start date"
-                    type="date"
-                    value={startDate}
-                    onChange={handleChangeStartDate}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-                <TextField
-                    color='secondary'
-                    id="endDate"
-                    label="End date"
-                    type="date"
-                    defaultValue={endDate}
-                    value={endDate}
-                    onChange={handleChangeEndDate}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-        </Box>
-                <Grid className ={classes.padding} container spacing={5} alignItems="center" justify="center">
-        <Grid item xs={12} md={6}>
-                        <SvgMap rooms = { rooms } makeState = { makeState } />
+        <Box my={5}>
+                <Grid className={classes.padding} container spacing={5} alignItems="center" justify="center">
+                    <Grid item >
+                    <Paper className = {classes.padding } variant = "outlined">
+                    <TextField
+                        color='secondary'
+                        id="startDate"
+                        label="Start date"
+                        type="date"
+                        value={startDate}
+                        onChange={handleChangeStartDate}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}/>
+                    </Paper>
                     </Grid>
-                    <Grid className = {classes.cardView} item xs={12} md={3}>
-                        { ( rooms.filter(r => r.number == selectedRoom ).length > 0) ?
-                        <Card room = { rooms.filter(r => r.number == selectedRoom)[0]} />
-                            : <div/>
-                        }
+                    <Grid item>
+                    <Paper className = {classes.padding} variant =  "outlined">
+                    <TextField
+                        color='secondary'
+                        id="endDate"
+                        label="End date"
+                        type="date"
+                        defaultValue={endDate}
+                        value={endDate}
+                        onChange={handleChangeEndDate}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}/>
+                    </Paper>
+                    
                     </Grid>
                 </Grid>
+            <Grid className={classes.padding} container spacing={5} alignItems="center" justify="center">
+                <Grid item xs={12} md={6}>
+                    <SvgMap rooms={rooms} makeState={makeState} />
+                </Grid>
+                <Grid className={classes.cardView} item xs={12} md={3}>
+                    {(rooms.filter(r => r.number == selectedRoom).length > 0) ?
+                        <Card room={rooms.filter(r => r.number == selectedRoom)[0]} />
+                        : <div />
+                    }
+                </Grid>
+            </Grid>
         </Box>
     );
 }

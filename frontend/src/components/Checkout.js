@@ -79,6 +79,10 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const handleReservation = () => {
+    alert("Reservation!");
+  }
+
   return (
     <React.Fragment>
       <main className={classes.layout}>
@@ -97,11 +101,12 @@ export default function Checkout() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Thank you for your reservation.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                  We have emailed your order confirmation, and will
+                  send you an update with your further reservation status. 
+                  You can see your reservation in your profile tab.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -116,7 +121,7 @@ export default function Checkout() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={activeStep === steps.length - 1 ? handleReservation : handleNext}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}

@@ -50,6 +50,7 @@ function Profile(props) {
 
     const handleSubmit = async (values) => {
         setSent(true);
+        console.log("METHOD POST");
         await fetch("http://localhost:8080/profile", {
             method: 'POST',
             credentials: 'same-origin',
@@ -140,8 +141,7 @@ function Profile(props) {
                                             fullWidth
                                             label="First name"
                                             name="firstName"
-                                            required
-                                            defaultValue={profileDetails && profileDetails.name}
+                                            initialValue={profileDetails && profileDetails.name}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -152,7 +152,7 @@ function Profile(props) {
                                             label="Last name"
                                             name="lastName"
                                             required
-                                            defaultValue={profileDetails && profileDetails.surname}
+                                            initialValue={profileDetails && profileDetails.surname}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -164,7 +164,7 @@ function Profile(props) {
                                             label="Address line 1"
                                             fullWidth
                                             autoComplete="shipping address-line1"
-                                            defaultValue={profileDetails && profileDetails.address1}
+                                            initialValue={profileDetails && profileDetails.address1}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -175,7 +175,7 @@ function Profile(props) {
                                             label="Address line 2"
                                             fullWidth
                                             autoComplete="shipping address-line2"
-                                            defaultValue={profileDetails && profileDetails.address2}
+                                            initialValue={profileDetails && profileDetails.address2}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -187,7 +187,7 @@ function Profile(props) {
                                             label="City"
                                             fullWidth
                                             autoComplete="shipping address-level2"
-                                            defaultValue={profileDetails && profileDetails.city}
+                                            initialValue={profileDetails && profileDetails.city}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -199,7 +199,7 @@ function Profile(props) {
                                             label="Zip / Postal code"
                                             fullWidth
                                             autoComplete="shipping postal-code"
-                                            defaultValue={profileDetails && profileDetails.zipCode}
+                                            initialValue={profileDetails && profileDetails.zipCode}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -211,7 +211,7 @@ function Profile(props) {
                                             label="Country"
                                             fullWidth
                                             autoComplete="shipping country"
-                                            defaultValue={profileDetails && profileDetails.country}
+                                            initialValue={profileDetails && profileDetails.country}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -223,7 +223,7 @@ function Profile(props) {
                                             label="Phone number"
                                             fullWidth
                                             autoComplete="phone"
-                                            defaultValue={profileDetails && profileDetails.phone}
+                                            initialValue={profileDetails && profileDetails.phone}
                                         />
                                     </Grid>
                                 </Grid>
@@ -241,6 +241,7 @@ function Profile(props) {
                                     disabled={submitting || sent}
                                     color="secondary"
                                     fullWidth
+                                    onclick = {handleSubmit}
                                 >
                                     {submitting || sent ? 'In progress…' : 'Save changes'}
                                 </FormButton>
