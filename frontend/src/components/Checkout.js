@@ -201,12 +201,8 @@ export default function Checkout(props) {
                   <Button
                     variant="contained"
                     color="primary"
-<<<<<<< HEAD
-                    onClick={activeStep === steps.length - 1 ? handleReservation : handleNext}
-=======
                     disabled={sent}
                     onClick={handleNext}
->>>>>>> 2a394ce874c7438125c4743360653f25a34ca2e3
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
