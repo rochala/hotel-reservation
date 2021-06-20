@@ -18,3 +18,7 @@ services:
 volumes:
     my-db:
 
+networks:
+    defaul:
+        external: true
+        name: hotel-reservation
