@@ -1,5 +1,6 @@
 package com.ztw.hotelreservation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,7 +37,8 @@ public class Client extends User {
     private String city;
     private String country;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("client")
     private List<Reservation> reservations = new ArrayList<>();
 
     public Client(Long id, String username, String password, String role, boolean active, String name,
