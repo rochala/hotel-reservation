@@ -1,6 +1,8 @@
 package com.ztw.hotelreservation.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigInteger;
@@ -28,20 +30,22 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="room_id")
+    @JsonIgnoreProperties("reservations")
     private Room room;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "worker_out_id")
     private Receptionist workerOut;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="worker_in_id")
     private Receptionist workerIn;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
+    @JsonIgnoreProperties("reservations")
     private Client client;
 
     private Date reservationTime;
