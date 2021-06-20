@@ -68,6 +68,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/profile").hasAnyRole(CLIENT.name(), STAFF.name(), FACEBOOK_CLIENT.name(), PREREGISTERED_CLIENT.name())
                 .antMatchers(HttpMethod.POST, "/profile", "/updateProfile", "/reservation").hasAuthority(CLIENT_WRITE.getPermission())
                 .antMatchers(HttpMethod.GET,  "/reservation").hasAuthority(CLIENT_WRITE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/reservation").hasAnyRole(CLIENT.name(), FACEBOOK_CLIENT.name())
                 .anyRequest()
                 .authenticated();
     }
@@ -75,7 +76,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+        corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 

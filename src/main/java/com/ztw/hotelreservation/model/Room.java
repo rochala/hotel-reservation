@@ -1,10 +1,7 @@
 package com.ztw.hotelreservation.model;
 
-import org.hibernate.boot.jaxb.hbm.internal.CacheAccessTypeConverter;
-
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 @Entity
@@ -32,11 +29,13 @@ public class Room implements Serializable {
     @OneToMany(mappedBy="room", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
+    private String description;
+
     public Room() {
     }
 
     public Room(Long id, Hotel hotel, int number, int floor, int bedsNumber,
-                boolean kitchen, BigInteger basePrice, List<Reservation> reservations) {
+                boolean kitchen, BigInteger basePrice, List<Reservation> reservations, String description) {
         this.id = id;
         this.hotel = hotel;
         this.number = number;
@@ -45,6 +44,7 @@ public class Room implements Serializable {
         this.kitchen = kitchen;
         this.basePrice = basePrice;
         this.reservations = reservations;
+        this.description = description;
     }
 
     public int getNumber() {
@@ -89,5 +89,13 @@ public class Room implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

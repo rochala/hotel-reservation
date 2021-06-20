@@ -46,4 +46,15 @@ public class ReservationController {
         else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @DeleteMapping("/reservation")
+    public ResponseEntity<?> deleteReservation(@RequestAttribute Long id, @RequestBody Reservation reservation) {
+        Optional<Reservation> optionalReservation=reservationRepository.findById(reservation.getId());
+        if (optionalReservation.isPresent()) {
+            reservationRepository.delete(optionalReservation.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }
