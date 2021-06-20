@@ -58,7 +58,12 @@ function SignIn(props) {
     }).then( response => {
         if (response.status === 200) {
             return response.json()
-        } else {
+        }
+        else if (response.status === 403){
+            alert("Wrong username or password");
+            setSent(false);
+        } 
+        else {
             setSent(false);
         }
     }).then( json => {

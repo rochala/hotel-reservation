@@ -133,7 +133,7 @@ function SignUp() {
                 </Link2>
               </Typography>
             </React.Fragment>
-            <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
+            <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate= {validate}>
               {({ handleSubmit, submitting }) => (
                 <form onSubmit={handleSubmit} className={classes.form} noValidate>
                   <Grid container spacing={2}>
