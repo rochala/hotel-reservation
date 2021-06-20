@@ -6,16 +6,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
-const products = [
-  { name: 'Room 1', desc: 'Room 1 Reservation Date 06/05/2021-12/05/2020', price: '$99.00' },
-  { name: 'Service', desc: '', price: 'Free' },
-];
-const addresses = ['Adress 1', 'Adress 2', 'Adress 3', 'ZIP-CODE', 'COUNTRY'];
 const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Bartlomiej Duda' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
+  { name: 'Card type', detail: '---' },
+  { name: 'Card holder', detail: '---' },
+  { name: 'Card number', detail: '---' },
+  { name: 'Expiry date', detail: '---' },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Review() {
+export default function Review(props) {
   const classes = useStyles();
 
   return (
@@ -39,16 +34,18 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+          <ListItem className={classes.listItem}>
+            <ListItemText primary={"Room number: " + props.number} secondary={"Reservation Date: " + props.start + " to " + props.end} />
+            <Typography variant="body2">{props.price + ".00 $"}</Typography>
           </ListItem>
-        ))}
+          <ListItem className={classes.listItem}>
+            <ListItemText primary="Service" secondary="Free" />
+            <Typography variant="body2">Free</Typography>
+          </ListItem>
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            {props.price + ".00 $"}
           </Typography>
         </ListItem>
       </List>
@@ -57,8 +54,9 @@ export default function Review() {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
+          <Typography gutterBottom>{props.fullName}</Typography>
+          <Typography gutterBottom>{props.address1}</Typography>
+          <Typography gutterBottom>{props.address2}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>

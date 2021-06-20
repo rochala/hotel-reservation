@@ -38,6 +38,7 @@ public class ClientController {
 
     @PostMapping("/profile")
     public ResponseEntity<?> updateUserDetails(@RequestAttribute Long id, @RequestBody Client updatedClient) {
+<<<<<<< HEAD
             Client clientToUpdate = clientRepository.findById(id).get();
             if (clientToUpdate.getRole().equals("CLIENT"))
                 clientToUpdate.setUsername(updatedClient.getUsername());
@@ -53,4 +54,19 @@ public class ClientController {
 
             return ResponseEntity.ok(clientToUpdate);
         }
+=======
+        Client clientToUpdate = clientRepository.findById(id).get();
+        if (clientToUpdate.getRole().equals("CLIENT"))
+            clientToUpdate.setUsername(updatedClient.getUsername());
+        clientToUpdate.setName(updatedClient.getName());
+        clientToUpdate.setSurname(updatedClient.getSurname());
+        clientToUpdate.setPhone(updatedClient.getPhone());
+        clientToUpdate.setAddress1(updatedClient.getAddress1());
+        clientToUpdate.setAddress2(updatedClient.getAddress2());
+        clientToUpdate.setCity(updatedClient.getCity());
+        clientToUpdate.setZipCode(updatedClient.getZipCode());
+        clientToUpdate.setCountry(updatedClient.getCountry());
+        clientRepository.save(clientToUpdate);
+        return ResponseEntity.ok(clientToUpdate);
+>>>>>>> 2a394ce874c7438125c4743360653f25a34ca2e3
     }

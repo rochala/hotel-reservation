@@ -85,7 +85,12 @@ function Reservation(props) {
                             shrink: true,
                         }}/>
                     </Paper>
-                    
+                    </Grid>
+                    <Grid className = {classes.cardView} item xs={12} md={3}>
+                        { ( rooms.filter(r => r.number == selectedRoom ).length > 0) ?
+                        <Card room = { rooms.filter(r => r.number == selectedRoom)[0]} id={selectedRoom} start={startDate} end={endDate}/>
+                            : <div/>
+                        }
                     </Grid>
                 </Grid>
             <Grid className={classes.padding} container spacing={5} alignItems="center" justify="center">

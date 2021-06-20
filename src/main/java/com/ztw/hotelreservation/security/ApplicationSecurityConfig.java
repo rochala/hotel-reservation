@@ -66,7 +66,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/adminPanel").hasRole(ADMIN.name())
                 .antMatchers(HttpMethod.GET, "/rooms/{floor}/{start}/{end}").permitAll()
                 .antMatchers(HttpMethod.GET, "/profile").hasAnyRole(CLIENT.name(), STAFF.name(), FACEBOOK_CLIENT.name(), PREREGISTERED_CLIENT.name())
-                .antMatchers(HttpMethod.POST, "/profile", "/updateProfile").hasAuthority(CLIENT_WRITE.getPermission())
+                .antMatchers(HttpMethod.POST, "/profile", "/updateProfile", "/reservation").hasAuthority(CLIENT_WRITE.getPermission())
+                .antMatchers(HttpMethod.GET,  "/reservation").hasAuthority(CLIENT_WRITE.getPermission())
                 .anyRequest()
                 .authenticated();
     }
