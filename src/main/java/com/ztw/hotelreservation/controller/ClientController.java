@@ -38,29 +38,18 @@ public class ClientController {
 
     @PostMapping("/profile")
     public ResponseEntity<?> updateUserDetails(@RequestAttribute Long id, @RequestBody Client updatedClient) {
-        Optional<User> checkUsername = userRepository.findByUsername(updatedClient.getUsername());
-        if (checkUsername.isPresent())
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        else {
-            Client clientToUpdate = clientRepository.findById(id).get();
-            if (clientToUpdate.getRole().equals("CLIENT"))
-                clientToUpdate.setUsername(updatedClient.getUsername());
-            clientToUpdate.setName(updatedClient.getName());
-            clientToUpdate.setSurname(updatedClient.getSurname());
-            clientToUpdate.setPhone(updatedClient.getPhone());
-            clientToUpdate.setAddress1(updatedClient.getAddress1());
-            clientToUpdate.setAddress2(updatedClient.getAddress2());
-            clientToUpdate.setCity(updatedClient.getCity());
-            clientToUpdate.setZipCode(updatedClient.getZipCode());
-            clientToUpdate.setCountry(updatedClient.getCountry());
-            clientRepository.save(clientToUpdate);
-            UserDetails updatedUserDetails = applicationUserService.loadUserByUsername(clientToUpdate.getUsername());
-            String token = jwtTokenProvider.generateToken(new UsernamePasswordAuthenticationToken(
-                    updatedUserDetails,
-                    null,
-                    updatedUserDetails.getAuthorities()
-            ));
-            return ResponseEntity.ok(new JwtTokenResponse(token));
-        }
+        Client clientToUpdate = clientRepository.findById(id).get();
+        if (clientToUpdate.getRole().equals("CLIENT"))
+            clientToUpdate.setUsername(updatedClient.getUsername());
+        clientToUpdate.setName(updatedClient.getName());
+        clientToUpdate.setSurname(updatedClient.getSurname());
+        clientToUpdate.setPhone(updatedClient.getPhone());
+        clientToUpdate.setAddress1(updatedClient.getAddress1());
+        clientToUpdate.setAddress2(updatedClient.getAddress2());
+        clientToUpdate.setCity(updatedClient.getCity());
+        clientToUpdate.setZipCode(updatedClient.getZipCode());
+        clientToUpdate.setCountry(updatedClient.getCountry());
+        clientRepository.save(clientToUpdate);
+        return ResponseEntity.ok(clientToUpdate);
     }
 }
