@@ -27,7 +27,7 @@ public class FacebookService {
         var facebookUser = facebookClient.getUser(fbAccessToken);
 
         return userService.findByUsername(facebookUser.getEmail())
-                .or(() -> Optional.ofNullable(userService.registerUser(convertTo(facebookUser), ApplicationUserRole.FACEBOOK_CLIENT)))
+                .or(() -> Optional.ofNullable(userService.registerUser(convertTo(facebookUser), ApplicationUserRole.PREREGISTERED_CLIENT)))
                 .map(ApplicationUserDetails::new)
                 .map(userDetails -> new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()))
@@ -40,7 +40,7 @@ public class FacebookService {
         var facebookUser = facebookClient.getUser(fbAccessToken);
         Optional<User> userOptional = userService.findByUsername(facebookUser.getEmail());
         if (userOptional.isPresent()) {
-            if (userOptional.get().getRole().equals("FACEBOOK_CLIENT"))
+            if (userOptional.get().getRole().equals("PREREGISTERED_CLIENT"))
                 return true;
             else
                 return false;

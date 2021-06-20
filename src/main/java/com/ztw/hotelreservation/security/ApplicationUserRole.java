@@ -11,6 +11,7 @@ import static com.ztw.hotelreservation.security.ApplicationUserPermission.*;
 public enum ApplicationUserRole {
     CLIENT(Sets.newHashSet(CLIENT_READ, CLIENT_WRITE, RESERVATION_READ, RESERVATION_WRITE)),
     FACEBOOK_CLIENT(Sets.newHashSet(CLIENT_READ, CLIENT_WRITE, RESERVATION_READ, RESERVATION_WRITE)),
+    PREREGISTERED_CLIENT(Sets.newHashSet(CLIENT_READ, CLIENT_WRITE)),
     STAFF(Sets.newHashSet(CLIENT_READ, RESERVATION_READ, RESERVATION_WRITE)),
     ADMIN(Sets.newHashSet(HOTEL_WRITE));
 

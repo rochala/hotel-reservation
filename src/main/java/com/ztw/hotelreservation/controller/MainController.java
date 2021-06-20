@@ -21,12 +21,7 @@ public class MainController {
     String profile(@RequestBody String username) {
         return "Authenticated to read client profile: "+username;
     }*/
-
-    //To może tylko client
-    @PostMapping("/profile")
-    String profileEdit() {
-        return "Authenticated to update client profile";
-    }
+    
 
     @GetMapping("/receptionistPanel")
     String receptionistPanel() {

@@ -71,7 +71,7 @@ public class ApplicationUserController {
     @PostMapping("/facebook/registerdetails")
     public  ResponseEntity<?> facebookRegisterDetails(@RequestAttribute Long id, @RequestBody Client client) {
         Client registeringUser=clientRepository.findById(id).get();
-        registeringUser.setRole("CLIENT");
+        registeringUser.setRole("FACEBOOK_CLIENT");
         registeringUser.setName(client.getName());
         registeringUser.setSurname(client.getSurname());
         registeringUser.setPhone(client.getPhone());
@@ -99,4 +99,6 @@ public class ApplicationUserController {
         JSONObject jsonObject = new JSONObject(jsonMap);
         return ResponseEntity.ok(new JSONObject(jsonMap));
     }
+    
+
 }
